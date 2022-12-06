@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  discord-bot:
+    container_name: discord-bot
+    image: discord-bot
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    ports:
+      - "${PORT}:${PORT}"
