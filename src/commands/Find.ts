@@ -14,23 +14,43 @@ export const Find: Command = {
   ],
   run: async (client: Client, interaction: CommandInteraction) => {
     let content = "Hello there!";
-
     if (!interaction.guildId) {
+      content = "Error: can't find guild id";
+      await interaction.followUp({
+        ephemeral: true,
+        content,
+      });
       return;
     }
-    const Guild = interaction.guild; // Getting the guild.
+    const Guild = interaction.guild;
     if (!Guild) {
+      content = "Error: can't find guild";
+      await interaction.followUp({
+        ephemeral: true,
+        content,
+      });
       return;
     }
     if (!interaction.options.data[0].user?.id) {
+      content = "Error: can't find user id";
+      await interaction.followUp({
+        ephemeral: true,
+        content,
+      });
       return;
     }
     const Member = Guild.members.cache.get(
       interaction.options.data[0].user?.id
-    ); // Getting the member.
+    );
     if (!Member) {
+      content = "Error: can't find member";
+      await interaction.followUp({
+        ephemeral: true,
+        content,
+      });
       return;
     }
+
     if (Member.voice.channel) {
       content = `${Member.user.tag} is connected to ${Member.voice.channel.name}!`;
     } else {
@@ -38,7 +58,6 @@ export const Find: Command = {
     }
 
     await interaction.followUp({
-      ephemeral: true,
       content,
     });
   },
