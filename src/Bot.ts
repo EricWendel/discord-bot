@@ -1,5 +1,5 @@
 require("dotenv").config();
-import { Client, ClientOptions, GatewayIntentBits } from "discord.js";
+import { Client, ClientOptions, GatewayIntentBits, Partials } from "discord.js";
 import { Client as dbClient, Query } from "ts-postgres";
 import interactionCreate from "./listeners/interactionCreate";
 import ready from "./listeners/ready";
@@ -13,7 +13,10 @@ const client = new Client({
     GatewayIntentBits.GuildPresences,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.MessageContent
   ],
+  partials: [Partials.Message, Partials.Channel],
 });
 
 const dbstuff = async () => {
