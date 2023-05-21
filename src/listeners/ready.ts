@@ -11,4 +11,10 @@ export default (client: Client): void => {
 
     console.log(`${client.user.username} is online`);
   });
+
+  client.on("guildMemberAdd", member => {
+    //console.log("new member join")
+    member.send("Welcome to the server!").catch(console.error);
+  });
+
 };
